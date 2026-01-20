@@ -58,3 +58,8 @@ export function groupPlayersByQueueType(players) {
     });
     return groupedByQueue;
 }
+
+// Detectar si está en GitHub Pages o en local
+export function isGitHubPages() {
+    return window.location.hostname.includes('github.io');
+}

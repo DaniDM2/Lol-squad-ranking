@@ -1,5 +1,6 @@
 import { CONFIG } from '../config.js';
 import { calculateScore } from '../utils/ranking-calc.js';
+import { isGitHubPages } from '../utils/helpers.js';
 
 export class PlayerCard {
     constructor(playerData) {
@@ -10,15 +11,10 @@ export class PlayerCard {
     getPlayerPhotoUrl() {
         // Buscar foto personalizada en assets
         const playerNameLowercase = this.player.name.toLowerCase().replace(/\s+/g, '-');
-        
-        // Detectar si está en GitHub Pages o en local
-        const isGitHubPages = window.location.hostname.includes('github.io');
-        const isLocalFile = window.location.protocol === 'file:';
-        
-        let assetPhotoUrl;
-        if (isGitHubPages) {
+                let assetPhotoUrl;
+        if (isGitHubPages()) {
             // URL para GitHub Pages
-            assetPhotoUrl = `/blob/main/assets/player-photos/${playerNameLowercase}.jpg`;
+            assetPhotoUrl = `https://github.com/DaniDM2/Lol-squad-ranking/blob/main/assets/player-photos/${playerNameLowercase}.jpg`;
         } else {
             // URL para desarrollo local
             assetPhotoUrl = `/assets/player-photos/${playerNameLowercase}.jpg`;
@@ -38,7 +34,7 @@ export class PlayerCard {
                     <div class="player-icon">
                         <img src="${this.getPlayerPhotoUrl()}" 
                              alt="${this.player.name}"
-                             onerror="this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/6.jpg'">
+                             onerror="this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${this.player.iconId || 6}.jpg'">
                     </div>
                     
                     <div class="player-info">

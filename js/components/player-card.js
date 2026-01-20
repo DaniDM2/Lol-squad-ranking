@@ -14,7 +14,7 @@ export class PlayerCard {
                 let assetPhotoUrl;
         if (isGitHubPages()) {
             // URL para GitHub Pages
-            assetPhotoUrl = `https://github.com/DaniDM2/Lol-squad-ranking/blob/main/assets/player-photos/${playerNameLowercase}.jpg`;
+            assetPhotoUrl = `https://raw.githubusercontent.com/DaniDM2/Lol-squad-ranking/main/assets/player-photos/${playerNameLowercase}.jpg`;
         } else {
             // URL para desarrollo local
             assetPhotoUrl = `/assets/player-photos/${playerNameLowercase}.jpg`;

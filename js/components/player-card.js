@@ -10,9 +10,20 @@ export class PlayerCard {
     getPlayerPhotoUrl() {
         // Buscar foto personalizada en assets
         const playerNameLowercase = this.player.name.toLowerCase().replace(/\s+/g, '-');
-        const assetPhotoUrl = `/assets/player-photos/${playerNameLowercase}.jpg`;
         
-        // Si no hay foto personalizada, usar el icono de Riot
+        // Detectar si está en GitHub Pages o en local
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const isLocalFile = window.location.protocol === 'file:';
+        
+        let assetPhotoUrl;
+        if (isGitHubPages) {
+            // URL para GitHub Pages
+            assetPhotoUrl = `/blob/main/assets/player-photos/${playerNameLowercase}.jpg`;
+        } else {
+            // URL para desarrollo local
+            assetPhotoUrl = `/assets/player-photos/${playerNameLowercase}.jpg`;
+        }
+        
         return assetPhotoUrl;
     }
 

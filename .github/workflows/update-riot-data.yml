@@ -1,0 +1,36 @@
+name: Update Riot Player Data
+
+on:
+  schedule:
+    # Ejecutar cada 6 horas
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Permite ejecutar manualmente desde GitHub
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Fetch Riot API data
+        run: node scripts/fetch-riot-data.js
+        env:
+          RIOT_API_KEY: ${{ secrets.RIOT_API_KEY }}
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/players-cache.json
+          git commit -m "🔄 Update player data - $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push

@@ -2,7 +2,7 @@ import { CONFIG, saveApiKey } from './config.js';
 import { RiotClient } from './api/riot-client.js';
 import { PlayerCard } from './components/player-card.js';
 import { sortPlayers } from './utils/ranking-calc.js';
-import { showElement, hideElement, showNotification, groupPlayersByQueueType } from './utils/helpers.js';
+import { showElement, hideElement, showNotification, groupPlayersByQueueType, isGitHubPages } from './utils/helpers.js';
 import { playRankingReadySound } from './utils/sound.js';
 class App {
     constructor() {
@@ -35,8 +35,11 @@ class App {
     }
 
     checkApiKey() {
-        if (CONFIG.apiKey) {
-            // Cargar datos automáticamente si hay API key
+        if (isGitHubPages()) {
+            // En GitHub Pages, cargar datos cacheados (actualizados por GitHub Actions)
+            this.loadCachedData();
+        } else if (CONFIG.apiKey) {
+            // En desarrollo local, usar API directamente
             this.loadAllPlayers();
         }
     }
@@ -109,6 +112,35 @@ class App {
             veteran: rankedInfo.veteran || false,
             freshBlood: rankedInfo.freshBlood || false
         }));
+    }
+
+    async loadCachedData() {
+        try {
+            showElement('loading');
+            hideElement('error');
+            
+            const response = await fetch('./data/players-cache.json');
+            if (!response.ok) {
+                throw new Error('No cached data available');
+            }
+
+            const data = await response.json();
+            this.players = sortPlayers(data.players || []);
+            
+            this.render();
+            this.updateLastUpdateTime();
+            
+            // Mostrar información sobre los datos cacheados
+            if (data.timestamp) {
+                const lastUpdate = new Date(data.timestamp);
+                showNotification(`📦 Datos cacheados (actualizado: ${lastUpdate.toLocaleTimeString()})`, 'info');
+            }
+        } catch (error) {
+            console.error('Error loading cached data:', error);
+            this.showError('No hay datos disponibles. GitHub Actions debe ejecutarse primero.');
+        } finally {
+            hideElement('loading');
+        }
     }
 
     render() {
@@ -191,20 +223,11 @@ class App {
                     <h2><i class="fas fa-cog"></i> Configuración</h2>
                     
                     <div class="form-group">
-                        <label for="apiKey">API Key de Riot:</label>
-                        <input type="password" id="apiKey" 
-                               placeholder="RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-                               value="${CONFIG.apiKey || ''}">
-                        <small class="help-text">
-                            <a href="https://developer.riotgames.com/" target="_blank">
-                                Obtén tu API Key aquí
-                            </a> (dura 24 horas)
-                        </small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Olorosos (uno por línea):</label>
+                        <label>Amigos (uno por línea):</label>
                         <textarea id="friendsList" rows="6">${CONFIG.friends.join('\n')}</textarea>
+                        <small class="help-text">
+                            Los datos se actualizan automáticamente cada 6 horas vía GitHub Actions
+                        </small>
                     </div>
                     
                     <div class="modal-actions">
@@ -242,14 +265,12 @@ class App {
     }
 
     saveConfig(modalContainer) {
-        const apiKey = document.getElementById('apiKey').value.trim();
         const friendsList = document.getElementById('friendsList').value
             .split('\n')
             .map(name => name.trim())
             .filter(name => name.length > 0);
 
-        if (apiKey) {
-            saveApiKey(apiKey);
+        if (friendsList.length > 0) {
             CONFIG.friends = friendsList;
             localStorage.setItem('lol_friends', JSON.stringify(friendsList));
             
@@ -259,7 +280,7 @@ class App {
             // Recargar datos con nueva configuración
             this.loadAllPlayers();
         } else {
-            showNotification('La API Key es requerida', 'error');
+            showNotification('Agrega al menos un amigo', 'error');
         }
     }
 

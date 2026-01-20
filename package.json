@@ -1,0 +1,12 @@
+{
+  "name": "lol-squad-ranking",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "League of Legends squad ranking application",
+  "scripts": {
+    "fetch-data": "node scripts/fetch-riot-data.js"
+  },
+  "keywords": ["league-of-legends", "ranking", "riot-api"],
+  "author": "",
+  "license": "MIT"
+}

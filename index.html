@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Ranking Virgenes</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/players.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <h1><i class="fas fa-trophy"></i> Ranking de virgenes</h1>
+            <p class="subtitle">¿Quién se ha comido menos coños?</p>
+        </div>
+    </header>
+
+    <!-- Controles -->
+    <section class="controls">
+        <div class="container">
+            <button id="refreshBtn" class="btn btn-primary">
+                <i class="fas fa-sync-alt"></i> Actualizar Ranking
+            </button>
+            <button id="configBtn" class="btn btn-secondary">
+                <i class="fas fa-cog"></i> Configuración
+            </button>
+        </div>
+    </section>
+
+    <!-- Contenido principal -->
+    <main class="container">
+        <div id="loading" class="loading-state">
+            <i class="fas fa-spinner fa-spin"></i> Cargando datos...
+        </div>
+        
+        <div id="error" class="error-state" style="display: none;"></div>
+        
+        <div id="ranking-container" class="ranking-grid">
+            <!-- Las cartas se insertan aquí con JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Última actualización: <span id="last-update">-</span></p>
+            <p class="disclaimer">No asociado con Riot Games. Datos de la API oficial.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript (al final del body) -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

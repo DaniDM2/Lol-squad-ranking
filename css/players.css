@@ -1,0 +1,225 @@
+/* Grid de ranking */
+.ranking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+}
+
+/* Carta de jugador */
+.player-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.player-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,204,0,0.5);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Header de la carta */
+.player-header {
+    display: flex;
+    padding: var(--spacing-md);
+    border-left: 4px solid;
+}
+
+.player-icon {
+    flex-shrink: 0;
+    margin-right: var(--spacing-md);
+}
+
+.player-icon img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid;
+    object-fit: cover;
+}
+
+.player-info {
+    flex-grow: 1;
+}
+
+.player-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: white;
+}
+
+.player-level {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.player-rank {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.hot-streak {
+    margin-left: 8px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Estadísticas */
+.player-stats {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.stat-box {
+    background: rgba(0,0,0,0.3);
+    border-radius: 8px;
+    padding: var(--spacing-sm);
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Barra de winrate */
+.winrate-bar {
+    background: rgba(255,255,255,0.1);
+    height: 10px;
+    border-radius: 5px;
+    margin: var(--spacing-sm) 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.winrate-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}
+
+.winrate-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Footer de la carta */
+.player-footer {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.player-score {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.score-label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.score-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.last-updated {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Estado vacío */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    margin-bottom: var(--spacing-xs);
+    color: white;
+}
+
+/* Estados para diferentes tiers */
+.player-card[data-tier="challenger"] {
+    border-color: var(--challenger);
+}
+
+.player-card[data-tier="grandmaster"] {
+    border-color: var(--grandmaster);
+}
+
+.player-card[data-tier="master"] {
+    border-color: var(--master);
+}
+
+.player-card[data-tier="diamond"] {
+    border-color: var(--diamond);
+}
+
+.player-card[data-tier="platinum"] {
+    border-color: var(--platinum);
+}
+
+/* Responsive para cartas */
+@media (max-width: 768px) {
+    .ranking-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .player-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .player-icon {
+        margin-right: 0;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .player-icon img {
+        width: 80px;
+        height: 80px
+    }
+}

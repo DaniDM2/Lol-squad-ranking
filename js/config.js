@@ -43,4 +43,4 @@ export function saveApiKey(key) {
     CONFIG.apiKey = key;
     localStorage.setItem('lol_api_key', key);
     console.log('API Key guardada localmente');
-} 
+}

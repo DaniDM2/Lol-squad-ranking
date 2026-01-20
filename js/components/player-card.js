@@ -7,6 +7,15 @@ export class PlayerCard {
         this.score = calculateScore(playerData);
     }
 
+    getPlayerPhotoUrl() {
+        // Buscar foto personalizada en assets
+        const playerNameLowercase = this.player.name.toLowerCase().replace(/\s+/g, '-');
+        const assetPhotoUrl = `/assets/player-photos/${playerNameLowercase}.jpg`;
+        
+        // Si no hay foto personalizada, usar el icono de Riot
+        return assetPhotoUrl;
+    }
+
     render() {
         const winrate = this.calculateWinrate();
         const tier = this.player.tier || 'UNRANKED';
@@ -16,7 +25,7 @@ export class PlayerCard {
             <div class="player-card" data-tier="${tier.toLowerCase()}" data-score="${this.score.toFixed(0)}">
                 <div class="player-header" style="border-left-color: ${rankColor}">
                     <div class="player-icon">
-                        <img src="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/${this.player.iconId || 6}.jpg" 
+                        <img src="${this.getPlayerPhotoUrl()}" 
                              alt="${this.player.name}"
                              onerror="this.src='https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/6.jpg'">
                     </div>

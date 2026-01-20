@@ -8,6 +8,7 @@ export const CONFIG = {
     
     // Región del servidor
     region: "europe", // euw1, na1, la1, la2, etc.
+    regionSummoner: "EUW1", // EUW, NA, LAN, LAS, etc.
     
     // API Key (se pide al usuario)
     apiKey: localStorage.getItem('lol_api_key') || '',

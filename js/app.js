@@ -86,17 +86,18 @@ class App {
 
     async loadPlayerData(summonerName) {
         // Obtener datos básicos
-        const summonerData = await this.riotClient.getSummonerByName(summonerName);
+        const accountData = await this.riotClient.getAccountBygameName(summonerName);
+        const invokerData = await this.riotClient.getSummonerByPuuid(accountData.puuid);
         
         // Obtener datos ranked
-        const rankedData = await this.riotClient.getRankedStats(summonerData.id);
+        const rankedData = await this.riotClient.getRankedStats(accountData.puuid);
         const soloRanked = rankedData.find(r => r.queueType === 'RANKED_SOLO_5x5');
         
         return {
-            name: summonerData.name,
-            level: summonerData.summonerLevel,
-            iconId: summonerData.profileIconId,
-            puuid: summonerData.puuid,
+            name: accountData.gameName,
+            level: invokerData.summonerLevel,
+            iconId: invokerData.profileIconId,
+            puuid: accountData.puuid,
             // Datos ranked (si existen)
             tier: soloRanked?.tier || 'UNRANKED',
             rank: soloRanked?.rank || '',

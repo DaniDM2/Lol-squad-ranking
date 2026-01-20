@@ -28,8 +28,8 @@ class App {
             this.showConfigModal();
         });
 
-        // Si no hay API key, mostrar modal automáticamente
-        if (!CONFIG.apiKey) {
+        // Si no hay API key en local, mostrar modal automáticamente
+        if (!isGitHubPages() && !CONFIG.apiKey) {
             setTimeout(() => this.showConfigModal(), 1000);
         }
     }
@@ -278,7 +278,11 @@ class App {
             modalContainer.remove();
             
             // Recargar datos con nueva configuración
-            this.loadAllPlayers();
+            if (isGitHubPages()) {
+                this.loadCachedData();
+            } else {
+                this.loadAllPlayers();
+            }
         } else {
             showNotification('Agrega al menos un amigo', 'error');
         }

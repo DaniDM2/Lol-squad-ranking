@@ -3,7 +3,7 @@ import { RiotClient } from './api/riot-client.js';
 import { PlayerCard } from './components/player-card.js';
 import { sortPlayers } from './utils/ranking-calc.js';
 import { showElement, hideElement, showNotification, groupPlayersByQueueType } from './utils/helpers.js';
-
+import { playRankingReadySound } from './utils/sound.js';
 class App {
     constructor() {
         this.riotClient = new RiotClient();
@@ -73,6 +73,9 @@ class App {
             
             // Actualizar timestamp
             this.updateLastUpdateTime();
+            
+            // Reproducir sonido
+            playRankingReadySound();
             
             // Notificación
             showNotification('¡Ranking actualizado!', 'success');
@@ -200,7 +203,7 @@ class App {
                     </div>
                     
                     <div class="form-group">
-                        <label>Amigos (uno por línea):</label>
+                        <label>Olorosos (uno por línea):</label>
                         <textarea id="friendsList" rows="6">${CONFIG.friends.join('\n')}</textarea>
                     </div>
                     

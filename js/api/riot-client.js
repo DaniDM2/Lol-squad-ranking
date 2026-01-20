@@ -45,41 +45,6 @@ export class RiotClient {
         }
     }
 
-    // Obtener datos de un invocador por nombre
-    // async getSummonerByName(name) {
-    //     const cacheKey = `summoner-${name}`;
-        
-    //     // Verificar caché
-    //     if (this.isValidCache(cacheKey)) {
-    //         return this.cache.get(cacheKey).data;
-    //     }
-        
-    //     try {
-    //         const response = await fetch(
-    //             `${this.baseURL}/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(name)}/EUW`,
-    //             { headers: this.headers }
-    //         );
-            
-    //         if (!response.ok) {
-    //             throw new Error(`Error ${response.status}: ${response.statusText}`);
-    //         }
-            
-    //         const data = await response.json();
-            
-    //         // Guardar en caché
-    //         this.cache.set(cacheKey, {
-    //             data,
-    //             timestamp: Date.now()
-    //         });
-            
-    //         return data;
-            
-    //     } catch (error) {
-    //         console.error(`Error obteniendo summoner ${name}:`, error);
-    //         throw error;
-    //     }
-    // }
-
     //Obtiene datos de invocador (usa el puuid)
     async getSummonerByPuuid(puuid) {
         const cacheKey = `summoner-puuid-${puuid}`;
@@ -132,34 +97,6 @@ export class RiotClient {
             return [];
         }   
     }
-    // Obtener datos ranked de un jugador
-    // async getRankedStats(summonerId) {
-    //     const cacheKey = `ranked-${summonerId}`;
-        
-    //     if (this.isValidCache(cacheKey)) {
-    //         return this.cache.get(cacheKey).data;
-    //     }
-        
-    //     try {
-    //         const response = await fetch(
-    //             `${this.baseURL}/lol/league/v4/entries/by-summoner/${summonerId}`,
-    //             { headers: this.headers }
-    //         );
-            
-    //         const data = await response.json();
-            
-    //         this.cache.set(cacheKey, {
-    //             data,
-    //             timestamp: Date.now()
-    //         });
-            
-    //         return data;
-            
-    //     } catch (error) {
-    //         console.error(`Error obteniendo ranked stats:`, error);
-    //         return [];
-    //     }
-    // }
 
     // Verificar si el caché es válido
     isValidCache(key) {

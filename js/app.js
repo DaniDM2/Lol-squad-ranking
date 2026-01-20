@@ -74,9 +74,6 @@ class App {
             // Actualizar timestamp
             this.updateLastUpdateTime();
             
-            // Reproducir sonido
-            playRankingReadySound();
-            
             // Notificación
             showNotification('¡Ranking actualizado!', 'success');
             
@@ -182,6 +179,9 @@ class App {
                 document.querySelector(`.tab-panel[data-queue="${queueType}"]`).classList.add('active');
             });
         });
+
+        // Reproducir sonido
+        playRankingReadySound();
     }
 
     showConfigModal() {

@@ -3,7 +3,8 @@ export const CONFIG = {
     // LISTA DE AMIGOS - ¡MODIFICA ESTO!
     friends: [
         "Teserhela",
-        "Fartinete"
+        "Fartinete",
+        "Rubitativo"
     ],
     
     // Región del servidor
@@ -28,6 +29,12 @@ export const CONFIG = {
         GRANDMASTER: '#FF3333',
         CHALLENGER: '#1A1AFF',
         UNRANKED: '#666666'
+    },
+    // Mapeo de queueType a nombres legibles
+    queueNames: {
+        'RANKED_SOLO_5x5': 'Solo 5v5',
+        'RANKED_FLEX_SR': 'Flex 5v5',
+        'RANKED_FLEX_TT': 'Flex 3v3'
     }
 };
 

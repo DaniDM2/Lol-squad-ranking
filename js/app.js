@@ -2,7 +2,7 @@ import { CONFIG, saveApiKey } from './config.js';
 import { RiotClient } from './api/riot-client.js';
 import { PlayerCard } from './components/player-card.js';
 import { sortPlayers } from './utils/ranking-calc.js';
-import { showElement, hideElement, showNotification } from './utils/helpers.js';
+import { showElement, hideElement, showNotification, groupPlayersByQueueType } from './utils/helpers.js';
 
 class App {
     constructor() {
@@ -56,9 +56,9 @@ class App {
             // Cargar datos de cada amigo
             for (const friendName of CONFIG.friends) {
                 try {
-                    const player = await this.loadPlayerData(friendName);
-                    if (player) {
-                        this.players.push(player);
+                    const playerList = await this.loadPlayerData(friendName);
+                    if (playerList && playerList.length > 0) {
+                        this.players.push(...playerList);
                     }
                 } catch (error) {
                     console.error(`Error cargando ${friendName}:`, error);
@@ -91,27 +91,28 @@ class App {
         
         // Obtener datos ranked
         const rankedData = await this.riotClient.getRankedStats(accountData.puuid);
-        const soloRanked = rankedData.find(r => r.queueType === 'RANKED_SOLO_5x5');
         
-        return {
+        // Crear un jugador por cada tipo de cola ranked
+        return rankedData.map(rankedInfo => ({
             name: accountData.gameName,
             level: invokerData.summonerLevel,
             iconId: invokerData.profileIconId,
             puuid: accountData.puuid,
-            // Datos ranked (si existen)
-            tier: soloRanked?.tier || 'UNRANKED',
-            rank: soloRanked?.rank || '',
-            leaguePoints: soloRanked?.leaguePoints || 0,
-            wins: soloRanked?.wins || 0,
-            losses: soloRanked?.losses || 0,
-            hotStreak: soloRanked?.hotStreak || false,
-            veteran: soloRanked?.veteran || false,
-            freshBlood: soloRanked?.freshBlood || false
-        };
+            // Datos ranked
+            queueType: rankedInfo.queueType,
+            tier: rankedInfo.tier || 'UNRANKED',
+            rank: rankedInfo.rank || '',
+            leaguePoints: rankedInfo.leaguePoints || 0,
+            wins: rankedInfo.wins || 0,
+            losses: rankedInfo.losses || 0,
+            hotStreak: rankedInfo.hotStreak || false,
+            veteran: rankedInfo.veteran || false,
+            freshBlood: rankedInfo.freshBlood || false
+        }));
     }
 
     render() {
-        const container = document.getElementById('ranking-container');
+        const container = document.getElementById('tabs-container');
         
         if (this.players.length === 0) {
             container.innerHTML = `
@@ -124,13 +125,60 @@ class App {
             return;
         }
 
-        // Renderizar cartas
-        container.innerHTML = this.players
-            .map((player, index) => {
-                const card = new PlayerCard(player);
-                return card.render();
-            })
-            .join('');
+        // Agrupar jugadores por queueType
+        const groupedByQueue = groupPlayersByQueueType(this.players);;
+
+        const queueTypes = Object.keys(groupedByQueue);
+
+        // Crear tabs
+        const tabsHTML = `
+            <div class="tabs-wrapper">
+                <div class="tabs-buttons">
+                    ${queueTypes.map((queueType, index) => `
+                        <button class="tab-button ${index === 0 ? 'active' : ''}" data-queue="${queueType}">
+                            ${CONFIG.queueNames[queueType] || queueType}
+                        </button>
+                    `).join('')}
+                </div>
+                
+                <div class="tabs-content">
+                    ${queueTypes.map((queueType, index) => {
+                        const players = groupedByQueue[queueType];
+                        const cardsHTML = players
+                            .map(player => {
+                                const card = new PlayerCard(player);
+                                return card.render();
+                            })
+                            .join('');
+
+                        return `
+                            <div class="tab-panel ${index === 0 ? 'active' : ''}" data-queue="${queueType}">
+                                <div class="ranking-grid">
+                                    ${cardsHTML}
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        `;
+
+        container.innerHTML = tabsHTML;
+
+        // Agregar event listeners a los tabs
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const queueType = e.target.dataset.queue;
+                
+                // Remover clase active de todos los tabs
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+                
+                // Agregar clase active al tab clickeado
+                e.target.classList.add('active');
+                document.querySelector(`.tab-panel[data-queue="${queueType}"]`).classList.add('active');
+            });
+        });
     }
 
     showConfigModal() {

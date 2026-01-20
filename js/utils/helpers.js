@@ -46,3 +46,15 @@ export function showNotification(message, type = 'info') {
         notification.remove();
     });
 }
+
+ // Agrupar jugadores por queueType
+export function groupPlayersByQueueType(players) { 
+    const groupedByQueue = {};
+    players.forEach(player => {
+        if (!groupedByQueue[player.queueType]) {
+            groupedByQueue[player.queueType] = [];
+        }
+        groupedByQueue[player.queueType].push(player);
+    });
+    return groupedByQueue;
+}

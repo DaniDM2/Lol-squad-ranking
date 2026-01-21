@@ -45,7 +45,7 @@ class App {
     }
 
     async loadAllPlayers() {
-        if (!CONFIG.apiKey) {
+        if (!CONFIG.apiKey && !isGitHubPages()) {
             this.showConfigModal();
             return;
         }

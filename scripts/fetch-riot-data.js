@@ -9,13 +9,18 @@ const API_KEY = process.env.RIOT_API_KEY;
 const REGION = 'europe';
 const REGION_SUMMONER = 'EUW1';
 const CACHE_FILE = path.join(__dirname, '../data/players-cache.json');
+const FRIENDS_FILE = path.join(__dirname, '../data/friends.json');
 
-// Friends list - mismo que en config.js
-const FRIENDS = [
-    "Teserhela",
-    "Fartinete",
-    "Rubitativo"
-];
+// Leer amigos del archivo JSON
+let FRIENDS = [];
+try {
+    const friendsData = fs.readFileSync(FRIENDS_FILE, 'utf-8');
+    FRIENDS = JSON.parse(friendsData);
+    console.log(`📋 Loaded ${FRIENDS.length} friends from friends.json`);
+} catch (error) {
+    console.error('❌ Error reading friends.json:', error.message);
+    process.exit(1);
+}
 
 class RiotDataFetcher {
     constructor(apiKey) {

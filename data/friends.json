@@ -1,44 +1,5 @@
-{
-    "friends": [
-        {
-            "summonerName": "Player One",
-            "tier": "GOLD",
-            "rank": "II",
-            "wins": 125,
-            "losses": 98,
-            "kda": 2.45,
-            "cs": 6.8,
-            "avatar": "assets/icons/player1.png"
-        },
-        {
-            "summonerName": "Player Two",
-            "tier": "PLATINUM",
-            "rank": "III",
-            "wins": 156,
-            "losses": 112,
-            "kda": 2.85,
-            "cs": 7.2,
-            "avatar": "assets/icons/player2.png"
-        },
-        {
-            "summonerName": "Player Three",
-            "tier": "SILVER",
-            "rank": "I",
-            "wins": 89,
-            "losses": 76,
-            "kda": 2.1,
-            "cs": 5.9,
-            "avatar": "assets/icons/player3.png"
-        },
-        {
-            "summonerName": "Player Four",
-            "tier": "DIAMOND",
-            "rank": "IV",
-            "wins": 201,
-            "losses": 145,
-            "kda": 3.2,
-            "cs": 7.8,
-            "avatar": "assets/icons/player4.png"
-        }
-    ]
-}
+[
+  "Teserhela",
+  "Fartinete",
+  "Rubitativo"
+]

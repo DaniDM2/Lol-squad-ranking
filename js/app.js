@@ -217,16 +217,34 @@ class App {
     }
 
     showConfigModal() {
+        const isLocal = !isGitHubPages();
+        
+        const apiKeyField = isLocal ? `
+                    <div class="form-group">
+                        <label for="apiKey">API Key de Riot (Local):</label>
+                        <input type="password" id="apiKey" 
+                               placeholder="RGAPI-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                               value="${CONFIG.apiKey || ''}">
+                        <small class="help-text">
+                            <a href="https://developer.riotgames.com/" target="_blank">
+                                Obtén tu API Key aquí
+                            </a> (dura 24 horas)
+                        </small>
+                    </div>
+        ` : '';
+        
         const modalHTML = `
             <div class="modal-overlay">
                 <div class="modal">
                     <h2><i class="fas fa-cog"></i> Configuración</h2>
                     
+                    ${apiKeyField}
+                    
                     <div class="form-group">
                         <label>Amigos (uno por línea):</label>
                         <textarea id="friendsList" rows="6">${CONFIG.friends.join('\n')}</textarea>
                         <small class="help-text">
-                            Los datos se actualizan automáticamente cada 6 horas vía GitHub Actions
+                            ${isLocal ? 'Los datos se cargan desde la API' : 'Los datos se actualizan automáticamente cada 6 horas vía GitHub Actions'}
                         </small>
                     </div>
                     
@@ -265,12 +283,30 @@ class App {
     }
 
     saveConfig(modalContainer) {
+        const isLocal = !isGitHubPages();
+        const apiKeyInput = document.getElementById('apiKey');
+        const apiKey = isLocal ? apiKeyInput?.value.trim() : '';
+        
         const friendsList = document.getElementById('friendsList').value
             .split('\n')
             .map(name => name.trim())
             .filter(name => name.length > 0);
 
+        // Si es local, requiere API key
+        if (isLocal && !apiKey) {
+            showNotification('La API Key es requerida en desarrollo local', 'error');
+            return;
+        }
+
         if (friendsList.length > 0) {
+            // Guardar API key solo si es local
+            if (isLocal && apiKey) {
+                saveApiKey(apiKey);
+                CONFIG.apiKey = apiKey;
+                // Reinicializar RiotClient con la nueva API key
+                this.riotClient = new RiotClient();
+            }
+            
             CONFIG.friends = friendsList;
             localStorage.setItem('lol_friends', JSON.stringify(friendsList));
             

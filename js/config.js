@@ -4,7 +4,9 @@ export const CONFIG = {
     friends: [
         "Teserhela",
         "Fartinete",
-        "Rubitativo"
+        "Rubitativo",
+        "Tetradotoxin",
+        "JoelRoblex"
     ],
     
     // Región del servidor

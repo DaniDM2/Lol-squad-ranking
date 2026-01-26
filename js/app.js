@@ -24,9 +24,13 @@ class App {
         });
 
         // Botón de configuración
-        document.getElementById('configBtn').addEventListener('click', () => {
-            this.showConfigModal();
-        });
+        if(isGitHubPages){
+            document.getElementById('configBtn').style.display = 'none';
+        }else{
+            document.getElementById('configBtn').addEventListener('click', () => {
+              this.showConfigModal();
+            });
+        }
 
         // Si no hay API key en local, mostrar modal automáticamente
         if (!isGitHubPages() && !CONFIG.apiKey) {
@@ -48,6 +52,12 @@ class App {
         if (!CONFIG.apiKey && !isGitHubPages()) {
             this.showConfigModal();
             return;
+        }
+
+        if(isGitHubPages){
+            // Cargar datos cacheados
+            this.loadCachedData();
+            return
         }
 
         showElement('loading');

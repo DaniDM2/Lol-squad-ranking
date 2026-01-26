@@ -37,6 +37,7 @@ class RiotDataFetcher {
             ? name.split('#') 
             : [name, 'EUW'];
 
+        console.log(`${this.baseURL}/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(gameName)}/${encodeURIComponent(tagLine)}`);
         const response = await fetch(
             `${this.baseURL}/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(gameName)}/${encodeURIComponent(tagLine)}`,
             { headers: this.headers }
@@ -50,6 +51,7 @@ class RiotDataFetcher {
     }
 
     async getSummonerByPuuid(puuid) {
+        console.log(`${this.baseURLSummoner}/lol/summoner/v4/summoners/by-puuid/${puuid}`);
         const response = await fetch(
             `${this.baseURLSummoner}/lol/summoner/v4/summoners/by-puuid/${puuid}`,
             { headers: this.headers }
@@ -127,7 +129,7 @@ async function main() {
     }
 
     try {
-        console.log('🚀 Starting Riot data fetch... API_KEY: ' + API_KEY);
+        console.log('🚀 Starting Riot data fetch...');
         const fetcher = new RiotDataFetcher(API_KEY);
         const players = await fetcher.fetchAllPlayers();
 

@@ -37,7 +37,6 @@ class RiotDataFetcher {
             ? name.split('#') 
             : [name, 'EUW'];
 
-        console.log(`${this.baseURL}/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(gameName)}/${encodeURIComponent(tagLine)}`);
         const response = await fetch(
             `${this.baseURL}/riot/account/v1/accounts/by-riot-id/${encodeURIComponent(gameName)}/${encodeURIComponent(tagLine)}`,
             { headers: this.headers }
@@ -51,7 +50,6 @@ class RiotDataFetcher {
     }
 
     async getSummonerByPuuid(puuid) {
-        console.log(`${this.baseURLSummoner}/lol/summoner/v4/summoners/by-puuid/${puuid}`);
         const response = await fetch(
             `${this.baseURLSummoner}/lol/summoner/v4/summoners/by-puuid/${puuid}`,
             { headers: this.headers }
@@ -69,7 +67,6 @@ class RiotDataFetcher {
             `${this.baseURLSummoner}/lol/league/v4/entries/by-puuid/${puuid}`,
             { headers: this.headers }
         );
-        console.log(`${this.baseURLSummoner}/lol/league/v4/entries/by-puuid/${puuid}`);
 
         if (!response.ok) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);

@@ -66,10 +66,10 @@ class RiotDataFetcher {
 
     async getRankedStats(puuid) {
         const response = await fetch(
-            `${this.baseURLSummoner}/lol/league/v4/entries/by-summoner/${puuid}`,
+            `${this.baseURLSummoner}/lol/league/v4/entries/by-puuid/${puuid}`,
             { headers: this.headers }
         );
-        console.log(`${this.baseURLSummoner}/lol/league/v4/entries/by-summoner/${puuid}`);
+        console.log(`${this.baseURLSummoner}/lol/league/v4/entries/by-puuid/${puuid}`);
 
         if (!response.ok) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);

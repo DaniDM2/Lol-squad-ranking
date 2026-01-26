@@ -126,7 +126,7 @@ async function main() {
     }
 
     try {
-        console.log('🚀 Starting Riot data fetch...');
+        console.log('🚀 Starting Riot data fetch... API_KEY: ' + API_KEY);
         const fetcher = new RiotDataFetcher(API_KEY);
         const players = await fetcher.fetchAllPlayers();
 

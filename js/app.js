@@ -133,7 +133,7 @@ class App {
             // Mostrar información sobre los datos cacheados
             if (data.timestamp) {
                 const lastUpdate = new Date(data.timestamp);
-                showNotification(`📦 Datos cacheados (actualizado: ${lastUpdate.toLocaleTimeString()})`, 'info');
+                showNotification(`📦 Datos actualizados: ${lastUpdate.toLocaleTimeString()})`, 'info');
             }
         } catch (error) {
             console.error('Error loading cached data:', error);

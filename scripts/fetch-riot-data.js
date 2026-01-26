@@ -82,7 +82,7 @@ class RiotDataFetcher {
         try {
             const accountData = await this.getAccountByGameName(summonerName);
             const invokerData = await this.getSummonerByPuuid(accountData.puuid);
-            const rankedData = await this.getRankedStats(invokerData.id);
+            const rankedData = await this.getRankedStats(accountData.puuid);
 
             return rankedData.map(rankedInfo => ({
                 name: accountData.gameName,

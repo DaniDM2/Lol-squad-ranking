@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-26T14:20:14.202Z",
+  "timestamp": "2026-01-26T18:27:21.246Z",
   "players": [
     {
       "name": "Teserhela",
@@ -9,9 +9,9 @@
       "queueType": "RANKED_SOLO_5x5",
       "tier": "BRONZE",
       "rank": "III",
-      "leaguePoints": 74,
-      "wins": 14,
-      "losses": 13,
+      "leaguePoints": 89,
+      "wins": 16,
+      "losses": 15,
       "hotStreak": false,
       "veteran": false,
       "freshBlood": false
@@ -49,7 +49,7 @@
     {
       "name": "RubiTativo",
       "level": 103,
-      "iconId": 7027,
+      "iconId": 1107,
       "puuid": "pTWLJVXMbPaS_mmCo1M0SOVRYhIAnoOZGYsXNNI0FBD-ZsABW6UiXAMrgDxnQlyDt3ZQijkmFgwwDA",
       "queueType": "RANKED_FLEX_SR",
       "tier": "BRONZE",
@@ -64,17 +64,32 @@
     {
       "name": "RubiTativo",
       "level": 103,
-      "iconId": 7027,
+      "iconId": 1107,
       "puuid": "pTWLJVXMbPaS_mmCo1M0SOVRYhIAnoOZGYsXNNI0FBD-ZsABW6UiXAMrgDxnQlyDt3ZQijkmFgwwDA",
       "queueType": "RANKED_SOLO_5x5",
       "tier": "SILVER",
       "rank": "IV",
-      "leaguePoints": 0,
-      "wins": 25,
-      "losses": 27,
+      "leaguePoints": 12,
+      "wins": 27,
+      "losses": 29,
       "hotStreak": false,
       "veteran": false,
       "freshBlood": true
+    },
+    {
+      "name": "Tetradotoxin",
+      "level": 603,
+      "iconId": 665,
+      "puuid": "75MsjgBM2WVLu6hdGs5C44LYuuBMAZPAgG5AOe4snkILt9ZhI7ae5oBCJvKIqt4ELdbGRBIqggGycw",
+      "queueType": "RANKED_SOLO_5x5",
+      "tier": "EMERALD",
+      "rank": "II",
+      "leaguePoints": 64,
+      "wins": 44,
+      "losses": 56,
+      "hotStreak": false,
+      "veteran": false,
+      "freshBlood": false
     },
     {
       "name": "Tetradotoxin",
@@ -87,21 +102,6 @@
       "leaguePoints": 16,
       "wins": 10,
       "losses": 16,
-      "hotStreak": false,
-      "veteran": false,
-      "freshBlood": false
-    },
-    {
-      "name": "Tetradotoxin",
-      "level": 603,
-      "iconId": 665,
-      "puuid": "75MsjgBM2WVLu6hdGs5C44LYuuBMAZPAgG5AOe4snkILt9ZhI7ae5oBCJvKIqt4ELdbGRBIqggGycw",
-      "queueType": "RANKED_SOLO_5x5",
-      "tier": "EMERALD",
-      "rank": "II",
-      "leaguePoints": 43,
-      "wins": 43,
-      "losses": 56,
       "hotStreak": false,
       "veteran": false,
       "freshBlood": false

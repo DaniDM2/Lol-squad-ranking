@@ -67,6 +67,7 @@ class RiotDataFetcher {
             `${this.baseURLSummoner}/lol/league/v4/entries/by-summoner/${puuid}`,
             { headers: this.headers }
         );
+        console.log(`${this.baseURLSummoner}/lol/league/v4/entries/by-summoner/${puuid}`);
 
         if (!response.ok) {
             throw new Error(`Error ${response.status}: ${response.statusText}`);

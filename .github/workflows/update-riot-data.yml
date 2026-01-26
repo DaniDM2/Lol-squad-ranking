@@ -5,6 +5,8 @@ on:
     # Ejecutar cada 6 horas
     - cron: '0 */6 * * *'
   workflow_dispatch: # Permite ejecutar manualmente desde GitHub
+permissions:
+  contents: write
 
 jobs:
   update-data:

@@ -137,8 +137,7 @@ class App {
             const data = await response.json();
             this.players = sortPlayers(data.players || []);
             
-            this.render();
-            this.updateLastUpdateTime();
+            setTimeout(() => this.render(), 2000);
             
             // Mostrar información sobre los datos cacheados
             if (data.timestamp) {
